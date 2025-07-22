@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Utilisateurs{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Liste des utilisateurs</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Grade</th>
+                    <th>Unité</th>
+                    <th>Rôle</th>
+                    <th>Solde Permissions</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in utilisateurs %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.grade }}</td>
+                        <td>{{ user.unite }}</td>
+                        <td>{{ user.roles | join(', ') }}</td>
+                        <td>{{ user.soldePermissions }}</td>
+                        <td>
+                            <a href="{{ path('app_rh_modifier_role', { id: user.id }) }}" class="btn btn-sm btn-outline-primary mb-1">Modifier Rôle</a>
+                            <a href="{{ path('app_rh_ajuster_solde', { id: user.id }) }}" class="btn btn-sm btn-outline-warning">Ajuster Solde</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="text-muted">Aucun utilisateur trouvé.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

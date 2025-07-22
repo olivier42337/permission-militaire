@@ -1,20 +1,25 @@
-# This file is the entry point to configure your own services.
-# Files in the packages/ subdirectory configure your dependencies.
-
-# Put parameters here that don't need to change on each machine where the app is deployed
-# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    # Paramètres personnalisés si besoin (exemple : nom de l'app)
+    app.name: 'Gestion Permissions Militaires'
 
 services:
-    # default configuration for services in *this* file
+    # ⚙️ Configuration par défaut
     _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        autowire: true      # Injection automatique des dépendances
+        autoconfigure: true # Enregistrement automatique (commandes, events…)
+        bind:
+            $appName: '%app.name%' # Injection automatique d’un paramètre commun
 
-    # makes classes in src/ available to be used as services
-    # this creates a service per class whose id is the fully-qualified class name
+    # ⛓️ Tous les services dans src/ sont enregistrés automatiquement
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # Exemple de service personnalisé si tu crées un login success handler
+    App\Security\LoginSuccessHandler:
+        arguments:
+            $router: '@router'
+            $security: '@security.helper'

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de permission{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Formulaire de demande de permission</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="type" class="form-label">Type de permission</label>
+            <select id="type" name="type" class="form-select">
+                <option>courte</option>
+                <option>longue</option>
+                <option>étranger</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="date_debut" class="form-label">Date début</label>
+            <input type="date" id="date_debut" name="date_debut" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="date_fin" class="form-label">Date fin</label>
+            <input type="date" id="date_fin" name="date_fin" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="motif" class="form-label">Motif</label>
+            <textarea id="motif" name="motif" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Soumettre</button>
+        <a href="{{ path('app_militaire_dashboard') }}" class="btn btn-secondary mt-3">Retour</a>
+
+    </form>
+</div>
+{% endblock %}

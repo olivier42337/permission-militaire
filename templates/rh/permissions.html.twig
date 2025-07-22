@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Liste des permissions{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>Permissions</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Type</th>
+                <th>Début</th>
+                <th>Fin</th>
+                <th>Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for permission in permissions %}
+            <tr>
+                <td>{{ permission.user.nom }} {{ permission.user.prenom }}</td>
+                <td>{{ permission.type }}</td>
+                <td>{{ permission.dateDebut|date('d/m/Y') }}</td>
+                <td>{{ permission.dateFin|date('d/m/Y') }}</td>
+                <td>{{ permission.statut }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune permission trouvée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord Militaire{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Bienvenue, {{ app.user.prenom }} {{ app.user.nom }}</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Solde de permissions</h5>
+                    <p class="card-text display-5 text-success">{{ app.user.soldePermissions }} jours</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Unité</h5>
+                    <p class="card-text">{{ app.user.unite }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="text-center">
+        <a href="{{ path('app_demande_permission') }}" class="btn btn-primary">Faire une demande de permission</a>
+    </div>
+</div>
+{% endblock %}

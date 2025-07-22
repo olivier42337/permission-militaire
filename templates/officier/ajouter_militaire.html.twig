@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer un militaire{% endblock %}
+{% block body %}
+<div class="container mt-4">
+    <h2>Créer un nouveau militaire</h2>
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.grade) }}
+        {{ form_row(form.unite) }}
+        {{ form_row(form.password) }}
+        {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}

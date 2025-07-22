@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques RH{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Statistiques globales des permissions</h2>
+
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card border-dark">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total</h5>
+                    <p class="display-6 text-dark">{{ stats.total }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card border-success">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Acceptées</h5>
+                    <p class="display-6 text-success">{{ stats.acceptées }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card border-danger">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Refusées</h5>
+                    <p class="display-6 text-danger">{{ stats.refusées }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card border-warning">
+                <div class="card-body text-center">
+                    <h5 class="card-title">En attente</h5>
+                    <p class="display-6 text-warning">{{ stats['en attente'] }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

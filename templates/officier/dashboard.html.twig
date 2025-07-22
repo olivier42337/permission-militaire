@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Officier{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">
+        👮‍♂️ Tableau de bord – {{ user.grade }} {{ user.nom }} {{ user.prenom }}
+    </h2>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-start border-4 border-primary">
+                <div class="card-header bg-primary text-white">
+                    📌 Unité du militaire
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ user.unite }}</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm border-start border-4 border-info">
+                <div class="card-header bg-info text-white">
+                    ⚙️ Actions rapides
+                </div>
+                <div class="card-body d-grid gap-2">
+                    <a href="{{ path('app_officier_demandes') }}" class="btn btn-outline-success">
+                        📋 Gérer les demandes
+                    </a>
+                    <a href="{{ path('app_officier_calendrier') }}" class="btn btn-outline-secondary">
+                        📅 Voir le calendrier global
+                    </a>
+                    <a href="{{ path('app_officier_liste_programmes') }}" class="btn btn-info btn-block mt-2">📋 Missions & Stages</a>
+
+                    <a href="{{ path('app_officier_ajouter_programme') }}" class="btn btn-outline-warning">
+                        ➕ Ajouter mission ou stage
+                    </a>
+                    <a href="{{ path('app_officier_liste_utilisateurs') }}" class="btn btn-outline-dark">
+                        👥 Gérer les utilisateurs
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajuster le solde{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2>Ajuster le solde de permissions de {{ user.nom }} {{ user.prenom }}</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label for="solde">Solde de permissions</label>
+            <input type="number" name="solde" class="form-control" value="{{ user.soldePermissions }}">
+        </div>
+        <button type="submit" class="btn btn-success">Enregistrer</button>
+    </form>
+</div>
+{% endblock %}

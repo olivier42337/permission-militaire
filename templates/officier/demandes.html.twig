@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les demandes de permissions{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4">Demandes de permission à traiter</h2>
+
+    {% if permissions is empty %}
+        <div class="alert alert-info">Aucune demande en attente.</div>
+    {% else %}
+        <table class="table table-bordered table-hover">
+            <thead class="table-light">
+                <tr>
+                    <th>Militaire</th>
+                    <th>Type</th>
+                    <th>Dates</th>
+                    <th>Motif</th>
+                    <th>Statut</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for permission in permissions %}
+                    <tr>
+                        <td>{{ permission.user.nom }} {{ permission.user.prenom }}</td>
+                        <td>{{ permission.type }}</td>
+                        <td>
+                            Du {{ permission.dateDebut|date('d/m/Y') }}<br>
+                            au {{ permission.dateFin|date('d/m/Y') }}
+                        </td>
+                        <td>{{ permission.motif }}</td>
+                        <td>
+                            {% if permission.statut == 'en attente' %}
+                                <span class="badge bg-warning text-dark">En attente</span>
+                            {% elseif permission.statut == 'acceptée' %}
+                                <span class="badge bg-success">Acceptée</span>
+                            {% else %}
+                                <span class="badge bg-danger">Refusée</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if permission.statut == 'en attente' %}
+                                <form method="post" action="{{ path('app_officier_permission_valider', { id: permission.id }) }}" style="display:inline-block">
+                                    <input type="hidden" name="commentaire" value="Validé par officier">
+                                    <button class="btn btn-success btn-sm" onclick="return confirm('Valider cette demande ?')">Valider</button>
+                                </form>
+                                <form method="post" action="{{ path('app_officier_permission_refuser', { id: permission.id }) }}" style="display:inline-block">
+                                    <input type="hidden" name="commentaire" value="Refusé par officier">
+                                    <button class="btn btn-danger btn-sm" onclick="return confirm('Refuser cette demande ?')">Refuser</button>
+                                </form>
+                            {% else %}
+                                <small>Décision prise</small>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

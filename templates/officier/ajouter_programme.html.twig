@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une activité{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4">
+        <i class="fas fa-calendar-plus me-2"></i>
+        Ajouter une activité
+    </h2>
+
+    {{ form_start(form) }}
+        <div class="mb-3">
+            {{ form_row(form.type, {
+                'label': 'Type d\'activité',
+                'attr': {'class': 'form-select'}
+            }) }}
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form_row(form.dateDebut, {
+                    'label': 'Date de début',
+                    'attr': {'class': 'form-control'}
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.dateFin, {
+                    'label': 'Date de fin',
+                    'attr': {'class': 'form-control'}
+                }) }}
+            </div>
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.description, {
+                'label': 'Description de l’activité',
+                'attr': {
+                    'class': 'form-control',
+                    'placeholder': 'Ex : Sentinelle à Paris'
+                }
+            }) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_row(form.commentaire, {
+                'label': 'Commentaire',
+                'attr': {
+                    'class': 'form-control',
+                    'rows': 3,
+                    'placeholder': 'Détails sur la mission ou le stage...'
+                }
+            }) }}
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+            <a href="{{ path('app_rh_dashboard') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-1"></i> Annuler
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i> Enregistrer
+            </button>
+        </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

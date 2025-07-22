@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard RH{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4">Bienvenue RH – {{ user.nom }}</h2>
+
+    <div class="row">
+        <!-- Bloc Permissions -->
+        <div class="col-md-4">
+            <div class="card bg-primary text-white mb-3 shadow">
+                <div class="card-header">📊 Permissions</div>
+                <div class="card-body">
+                    <p class="card-text">Accéder aux statistiques globales et à l'historique des permissions.</p>
+                    <a href="{{ path('app_rh_statistiques') }}" class="btn btn-light btn-sm">Voir les statistiques</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloc Utilisateurs -->
+        <div class="col-md-4">
+            <div class="card bg-success text-white mb-3 shadow">
+                <div class="card-header">👥 Utilisateurs</div>
+                <div class="card-body">
+                    <p class="card-text">Gérer les rôles, unités et soldes des utilisateurs.</p>
+                    <a href="{{ path('app_rh_utilisateurs') }}" class="btn btn-light btn-sm">Gérer les utilisateurs</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloc Conflits -->
+        <div class="col-md-4">
+            <div class="card bg-danger text-white mb-3 shadow">
+                <div class="card-header">⚠️ Conflits</div>
+                <div class="card-body">
+                    <p class="card-text">Voir les conflits de plannings détectés (permissions, missions…).</p>
+                    <a href="{{ path('app_rh_conflits') }}" class="btn btn-light btn-sm">Voir les conflits</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

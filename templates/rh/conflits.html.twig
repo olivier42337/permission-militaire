@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conflits détectés{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Liste des conflits détectés</h2>
+
+    {% if conflits is empty %}
+        <div class="alert alert-info">Aucun conflit détecté.</div>
+    {% else %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Utilisateur</th>
+                    <th>Date début</th>
+                    <th>Date fin</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for conflit in conflits %}
+                    <tr>
+                        <td>{{ conflit.id }}</td>
+                        <td>{{ conflit.user.nom }} {{ conflit.user.prenom }}</td>
+                        <td>{{ conflit.dateDebut|date('d/m/Y') }}</td>
+                        <td>{{ conflit.dateFin|date('d/m/Y') }}</td>
+                        <td>{{ conflit.type }}</td>
+                        <td>{{ conflit.description }}</td>
+                    </tr>
+                {% endfor %}
+                <td>
+    <a href="{{ path('app_rh_conflit_supprimer', {id: conflit.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Confirmer la suppression ?')">
+        Supprimer
+    </a>
+    <td>
+    <a href="{{ path('app_rh_conflit_alerter', {id: conflit.id}) }}" class="btn btn-warning btn-sm">
+        Alerter l’officier
+    </a>
+</td>
+
+</td>
+
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

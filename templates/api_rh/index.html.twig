@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de bord RH{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h2 class="mb-4">Tableau de bord – Ressources Humaines</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Nom</h5>
+                    <p class="card-text">{{ app.user.prenom }} {{ app.user.nom }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Unité</h5>
+                    <p class="card-text">{{ app.user.unite }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="text-center">
+        <a href="{{ path('app_rh_utilisateurs') }}" class="btn btn-primary mb-2">Gérer les utilisateurs</a>
+<a href="{{ path('app_rh_soldes') }}" class="btn btn-secondary mb-2">Ajuster les soldes</a>
+<a href="{{ path('app_rh_audit') }}" class="btn btn-success mb-2">Consulter les audits</a>
+<a href="{{ path('app_rh_conflits') }}" class="btn btn-danger mb-2">Voir les conflits</a>
+
+    </div>
+</div>
+{% endblock %}

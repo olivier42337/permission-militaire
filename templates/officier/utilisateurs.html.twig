@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+{% block title %}Utilisateurs militaires{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>👨‍✈️ Utilisateurs militaires</h2>
+
+   <a href="{{ path('app_officier_ajouter_militaire') }}" class="btn btn-primary mb-3">➕ Ajouter un militaire</a>
+
+
+    {% if utilisateurs is empty %}
+        <div class="alert alert-info">Aucun militaire trouvé.</div>
+    {% else %}
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Grade</th>
+                    <th>Unité</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in utilisateurs %}
+                    <tr>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.grade }}</td>
+                        <td>{{ user.unite }}</td>
+                        <td>
+                            <a href="{{ path('modifier_militaire', {id: user.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                            <form method="post" action="{{ path('supprimer_militaire', {id: user.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer ce militaire ?')">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                <button class="btn btn-danger btn-sm">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

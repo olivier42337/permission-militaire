@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendrier des activités militaires{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.css" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2 class="mb-4">📅 Calendrier des activités – Unité {{ app.user.unite }}</h2>
+
+    <div class="mb-3">
+        <span class="badge bg-success">Permission</span>
+        <span class="badge bg-primary">Mission</span>
+        <span class="badge bg-warning text-dark">Stage</span>
+    </div>
+
+    <div id="calendar" class="mb-5"></div>
+
+    <h4>📋 Permissions validées</h4>
+
+    {% if permissions is empty %}
+        <div class="alert alert-info">Aucune permission validée.</div>
+    {% else %}
+        <table class="table table-bordered table-hover mt-3">
+            <thead class="table-light">
+                <tr>
+                    <th>Militaire</th>
+                    <th>Type</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for permission in permissions %}
+                    <tr>
+                        <td>{{ permission.user.nom }} {{ permission.user.prenom }}</td>
+                        <td class="text-capitalize">{{ permission.type }}</td>
+                        <td>{{ permission.dateDebut|date('d/m/Y') }}</td>
+                        <td>{{ permission.dateFin|date('d/m/Y') }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.8/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.8/main.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const calendarEl = document.getElementById('calendar');
+
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                height: 'auto',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,dayGridWeek'
+                },
+                events: '/officier/calendar/data' // ✅ Récupération dynamique des événements
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}

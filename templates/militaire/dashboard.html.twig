@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Militaire{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <h2 class="mb-4">Bienvenue, {{ user.nom }} {{ user.prenom }}</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Votre solde de permissions</h5>
+            <p class="card-text display-6 text-success">{{ user.soldePermissions }} jours</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{{ path('app_militaire_demande') }}" class="btn btn-primary">Faire une demande de permission</a>
+    </div>
+
+    <div class="mt-5">
+        <h4>Historique des demandes</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Motif</th>
+                    <th>Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for permission in permissions %}
+                    <tr>
+                        <td>{{ permission.type }}</td>
+                        <td>{{ permission.dateDebut|date('d/m/Y') }}</td>
+                        <td>{{ permission.dateFin|date('d/m/Y') }}</td>
+                        <td>{{ permission.motif }}</td>
+                        <td>
+                            {% if permission.statut == 'acceptée' %}
+                                <span class="badge bg-success">Acceptée</span>
+                            {% elseif permission.statut == 'refusée' %}
+                                <span class="badge bg-danger">Refusée</span>
+                            {% else %}
+                                <span class="badge bg-warning text-dark">En attente</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">Aucune demande envoyée.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+{% endblock %}
