@@ -1,28 +1,25 @@
-# Utilise une image PHP officielle avec Apache
+# Étape 1 : image officielle PHP avec Apache
 FROM php:8.2-apache
 
-# Installe les extensions PHP requises
+# Étape 2 : installation des extensions nécessaires à Symfony
 RUN apt-get update && apt-get install -y \
-    git unzip zip libicu-dev libonig-dev libzip-dev libpq-dev libxml2-dev \
-    && docker-php-ext-install intl pdo pdo_mysql zip opcache
+    git zip unzip libicu-dev libonig-dev libzip-dev libpq-dev libpng-dev libxml2-dev \
+    && docker-php-ext-install pdo pdo_mysql intl zip
 
-# Active le mod_rewrite d'Apache
+# Étape 3 : activer le mod rewrite d’Apache
 RUN a2enmod rewrite
 
-# Installe Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Étape 4 : installer Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copie les fichiers de l'application
+# Étape 5 : copier le projet dans le conteneur
 COPY . /var/www/html/
 
-# Change le dossier de travail
+# Étape 6 : se placer dans le bon dossier
 WORKDIR /var/www/html/
 
-# Installe les dépendances
+# Étape 7 : installer les dépendances Symfony
 RUN composer install --no-dev --optimize-autoloader
 
-# Donne les bons droits
-RUN chown -R www-data:www-data /var/www/html/var
-
-# Configure Apache pour pointer vers public/
-RUN sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf
+# Étape 8 : configurer Apache pour pointer sur /public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
